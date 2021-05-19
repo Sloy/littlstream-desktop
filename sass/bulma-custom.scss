@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+// Set your brand colors
+$purple: #8A4D76;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+
+
+// Disable responsiveness
+$desktop: 200px;
+
+$card-shadow: 0;
+
+$thumbnail-radius: 8px;
+
+.is-size-8 {
+    font-size: 0.6rem;
+}
+.folder {
+    line-height: normal;
+}
+
+@import "../node_modules/bulma/bulma.sass";
+
+.is-new {
+    background-color: beige;
+    border-radius: $thumbnail-radius;
+}
+
+.card-content {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 1.0rem;
+    padding-bottom: 1.0rem;
+}
+
+.is-gone {
+    display: none;
+}
+
+$thumbnail-size: 320px;
+
+img.thumbnail { // Fallback
+    width: $thumbnail-size;
+    height: $thumbnail-size;
+    border-radius: $thumbnail-radius;
+}
+img.thumbnail.layout-sbs, img.thumbnail.layout-sbs_fr {
+    object-fit: cover;
+    object-position: 100% 0;
+    width: $thumbnail-size;
+    height: $thumbnail-size;
+}
+img.thumbnail.layout-ou, img.thumbnail.layout-ou_fr  {
+    object-fit: cover;
+    object-position: 100% 0;
+    width: $thumbnail-size*1.5;
+    height: $thumbnail-size*0.75
+}
+img.thumbnail.layout-2d {
+    object-fit: cover;
+    width: $thumbnail-size*1.5;
+    height: $thumbnail-size
+}
+
+.has-margin-x-16 {
+    margin-right: 16px;
+    margin-left: 16px;
+}
+
+.has-margin-y-16 {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.is-selectable {
+    -webkit-user-select: text;
+}
+
+$slr-thumbnail-size: 100px;
+
+.slr-promo-message-body {
+    padding: 0px;
+}
+.slr-promo {
+    padding: 16px;
+    cursor: pointer;
+}
+.slr-promo:hover {
+    background-color: $grey-lighter;
+}
+.slr-promo img { 
+    object-fit: cover;
+    width: $slr-thumbnail-size;
+    height: $slr-thumbnail-size;
+    border-radius: 16px;
+}
+.slr-promo .heading {
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+

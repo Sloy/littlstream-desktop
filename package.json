@@ -1,0 +1,90 @@
+{
+  "name": "littlstream",
+  "version": "0.7.0",
+  "description": "Littlstream desktop application",
+  "main": "./build/main.js",
+  "build": {
+    "appId": "com.sloydev.littlstream",
+    "productName": "Littlstream",
+    "mac": {
+      "target": "dmg",
+      "category": "video",
+      "files": [
+        "!node_modules/ffmpeg-static/bin/win/**/*",
+        "!node_modules/ffmpeg-static/bin/linux/**/*"
+      ]
+    },
+    "win": {
+      "target": "nsis",
+      "files": [
+        "!node_modules/ffmpeg-static/bin/darwin/**/*",
+        "!node_modules/ffmpeg-static/bin/linux/**/*"
+      ]
+    },
+    "linux": {
+      "target": "deb",
+      "files": [
+        "!node_modules/ffmpeg-static/bin/darwin/**/*",
+        "!node_modules/ffmpeg-static/bin/win/**/*"
+      ]
+    },
+    "files": [
+      "./build/**/*",
+      "./public/**/*"
+    ],
+    "directories": {
+      "buildResources": "resources"
+    },
+    "publish": {
+      "provider": "s3",
+      "bucket": "littlstream-releases"
+    }
+  },
+  "scripts": {
+    "build": "tsc && npm run css-build",
+    "watch": "tsc -w",
+    "css-build": "node-sass --omit-source-map-url sass/bulma-custom.scss build/css/bulma-custom.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run build && electron ./build/main.js",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "release": "npm run release-mac && npm run release-win",
+    "release-mac": "npm run build && electron-builder -m --publish always",
+    "release-win": "./releaseWin.sh",
+    "release-win-from-docker": "npm run build && electron-builder -w --publish always"
+  },
+  "devDependencies": {
+    "@types/electron-settings": "^3.1.1",
+    "@types/fs-extra": "^5.0.4",
+    "@types/fs-readdir-recursive": "^1.0.0",
+    "@types/jquery": "^3.3.29",
+    "@types/node-localstorage": "^1.3.0",
+    "@types/semver-compare": "^1.0.0",
+    "@types/which": "^1.3.1",
+    "electron": "^4.0.1",
+    "electron-builder": "^20.38.4",
+    "node-sass": "^4.11.0",
+    "tslint": "^5.12.1",
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^4.2.1",
+    "bulma": "^0.7.2",
+    "electron-reload": "^1.4.0",
+    "electron-unhandled": "^2.1.0",
+    "electron-util": "^0.10.2",
+    "ffmpeg-static": "^2.4.0",
+    "finalhandler": "^1.1.1",
+    "firebase": "^5.7.3",
+    "fs-extra": "^7.0.1",
+    "fs-readdir-recursive": "^1.1.0",
+    "jquery": "^3.3.1",
+    "my-local-ip": "^1.0.0",
+    "node-localstorage": "^1.3.1",
+    "popper.js": "^1.14.6",
+    "semver-compare": "^1.0.0",
+    "serve-static": "^1.13.2",
+    "which": "^1.3.1"
+  }
+}

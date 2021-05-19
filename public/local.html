@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="./fontawesome-free-5.5.0-web/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="../build/css/bulma-custom.css">
+    <style>
+        body {
+            -webkit-user-select: none;
+        }
+
+        .title-bar {
+            height: 32px;
+            -webkit-app-region: drag;
+        }
+
+        body.has-navbar-fixed-top {
+            padding-top: 5rem;
+        }
+
+        .header {
+            -webkit-app-region: drag;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .header .level-right {
+            margin-right: 8px;
+        }
+
+        .space-top {
+            padding-top: 16px;
+        }
+
+        #section-setup {
+            box-shadow: 3px 0 6px rgba(0, 0, 0, 0.16);
+            z-index: 1;
+        }
+
+        #section-setup,
+        #section-preview {
+            padding: 30px
+        }
+    </style>
+</head>
+
+<body class="has-navbar-fixed-top has-navbar-fixed-bottom">
+    <div class="header is-fixed-top has-background-white">
+        <div class="title-bar has-text-centered">
+            <p class="">Littlstream</p>
+        </div>
+        <div class="level">
+            <div class="level-left">
+                <div class="tabs">
+                    <ul>
+                        <li class="is-active"><a>Local videos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="level-right">
+                <span id="version" class="has-margin-x-16">v0.0.0</span>
+                <div class="buttons">
+                    <a id="navbar-button-logout" class="button">
+                        <span class="icon is-small">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                    </a>
+                    <a id="navbar-button-help" class="button">
+                        <span class="icon is-small">
+                            <i class="fas fa-question-circle"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="columns">
+        <div id="section-setup" class="column is-one-third has-background-light">
+            <h2 class="subtitle">Setup</h2>
+
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input id="select-folder-text" class="input is-small" type="text" placeholder="Select folder..."
+                        readonly>
+                </div>
+                <div class="control">
+                    <a id="select-folder-button" class="button is-info is-small">Select</a>
+                </div>
+            </div>
+
+            <label class="field checkbox">
+                <input id="recursive-checkbox" type="checkbox">
+                Include subfolders
+            </label>
+
+            <div class="buttons has-addons space-top is-marginless">
+                <span id="layout-button-2d" class="button is-small">2D</span>
+                <span id="layout-button-sbs" class="button is-small">3D SBS</span>
+                <span id="layout-button-ou" class="button is-small">3D OU</span>
+            </div>
+
+            <div class="buttons has-addons">
+                <span id="type-button-180" class="button is-small">180º</span>
+                <span id="type-button-360" class="button is-small">360º</span>
+                <span id="type-button-ff" class="button is-small">Flat</span>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input id="filter-text" class="input" type="text" placeholder="Filter by name (optional)">
+                </div>
+            </div>
+
+            <div class="has-margin-y-16">
+                Hey! Want more features?
+                <a class="button" id="answer-survey">
+                    <span class="icon">
+                        <i class="fas fa-poll"></i>
+                    </span>
+                    <span>Answer this survey!</span>
+                </a>
+            </div>
+
+            <article id="feed-link-box" class="message is-primary has-margin-y-16">
+                <div class="message-header">
+                    <p>Your Littlstar feed link</p>
+                </div>
+                <div class="message-body">
+                    <div class="field has-addons">
+                        <div class="control is-expanded">
+                            <input id="feed-link-text" class="input" type="text"
+                                placeholder="start streaming to show link" readonly>
+                        </div>
+                        <div class="control">
+                            <a id="feed-link-copy-button" class="button is-info">Copy</a>
+                        </div>
+                    </div>
+                    <p class="is-size-7">
+                        Copy this link and paste it in your
+                        <a id="feed-link-littlstar-link" href="#" class="has-text-link">Littlstar feeds
+                            <span class="icon is-small has-text-link">
+                                <i class="fas fa-external-link-alt"></i>
+                            </span>
+                        </a>
+                    </p>
+                    <p class="is-size-7">
+                        Keep the application open while you watch the videos.
+                    </p>
+                </div>
+            </article>
+
+            <p class="is-size-7">Please report any issues or feedback to <span
+                    class="is-selectable">hello@littlstream.com</span></p>
+        </div>
+
+
+        <div id="section-preview" class="column">
+            <article id="promo-box" class="message is-gone">
+                <div class="message-header">
+                    <p>New videos from SLR</p>
+                    <button id="promo-box-close" class="delete"></button>
+                </div>
+                <div id="promo-box-items" class="message-body level slr-promo-message-body">
+                    <!-- items -->
+                </div>
+            </article>
+
+
+            <h2 class="subtitle">Preview</h2>
+            <div id="preview-list" class="columns is-multiline"></div>
+        </div>
+    </section>
+</body>
+<script>
+    require('../build/windows/navbar.view.js')
+    require('../build/windows/local.view.js')
+</script>
+
+</html>

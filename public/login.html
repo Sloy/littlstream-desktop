@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./theme.css" rel="stylesheet">
+  <link href="./fontawesome-free-5.5.0-web/css/all.css" rel="stylesheet">
+  <style>
+    body {
+      -webkit-app-region: drag;
+    }
+    /*! https://github.com/twbs/bootstrap/issues/21919#issuecomment-339780644 */
+    .sticky-top {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+    }
+  </style>
+  <title>Log in or create a new account</title>
+</head>
+
+<body>
+  <nav class="navbar sticky-top d-flex justify-content-end bg-dark py-2">
+    <div>
+      <span id="email-text" class="align-baseline mr-2"></span>
+      <a id="help-button" href="#" class="p-2 btn btn-secondary"><i class="far fa-question-circle mr-1"></i>Help</a>
+      <span id="version-text" class="align-baseline">0.0.0</span>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6 login-form">
+
+        <div class="card mb-3 mt-3">
+          <div class="card-body">
+            <div class="alert alert-info" role="alert">
+              This is a beta version!
+            </div>
+            <small class="form-text">Might contain errors (and it's ugly as hell). It's a work in progress. Please
+              report any problems or feedback to hello@littlstream.com</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email-field">Email:</label>
+          <input type="email" id="email-field" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group">
+          <label for="password-field">Password: </label>
+          <input type="password" id="password-field" class="form-control" placeholder="" />
+        </div>
+        <button id="signup-button" class="btn btn-danger">Sign Up</button>
+        <button id="login-button" class="btn btn-primary">Log In</button>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  require('../build/windows/login.view.js')
+</script>
+<script>window.$ = window.jQuery = require('../node_modules/jquery/dist/jquery.min');</script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</html>

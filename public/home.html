@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Littlstream</title>
+  <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./theme.css" rel="stylesheet">
+  <link href="./fontawesome-free-5.5.0-web/css/all.css" rel="stylesheet">
+
+  <style>
+    /*! https://github.com/twbs/bootstrap/issues/21919#issuecomment-339780644 */
+    .sticky-top {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+    }
+    body {
+      -webkit-app-region: drag;
+    }
+    .card {
+      -webkit-app-region: no-drag;
+    }
+    .thumbnail-sbs, .thumbnail-sbs_fr {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      overflow: hidden;
+    }
+    .thumbnail-ou, .thumbnail-ou_fr  {
+      position: relative;
+      width: 160px;
+      height: 80px;
+      overflow: hidden;
+    }
+    .thumbnail-sbs img, .thumbnail-sbs_fr img {
+      position: absolute;
+      height: 100%;
+      width: auto;
+    }
+    .thumbnail-ou img, .thumbnail-ou_fr img {
+      position: absolute;
+      height: auto;
+      width: 100%;
+    }
+    .thumbnail-2d {
+      position: relative;
+      width: 150px;
+      height: 80px;
+      overflow: hidden;
+    }
+    .thumbnail-2d img {
+      position: absolute;
+      height: 100%;
+      width: auto;
+    }
+    .thumbnail-missing {
+      background-color: antiquewhite;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar sticky-top d-flex justify-content-end bg-dark py-2">
+    <div>
+      <span id="email-text" class="align-baseline mr-2"></span>
+      <a id="logout-button" href="#" class="p-2 btn btn-secondary"><i class="fas fa-sign-out-alt mr-1"></i>Sign out</a>
+      <a id="help-button" href="#" class="p-2 btn btn-secondary"><i class="far fa-question-circle mr-1"></i>Help</a>
+      <span id="version-text" class="align-baseline">0.0.0</span>
+    </div>
+  </nav>
+
+  <div class="container px-5">
+    <div class="card mb-3 mt-3">
+      <div class="card-body">
+        <div class="alert alert-info" role="alert">
+          This is a beta version!
+        </div>
+        <small class="form-text">Might contain errors (and it's ugly as hell). It's a work in progress. Please
+          report any problems or feedback to hello@littlstream.com</small>
+      </div>
+    </div>
+
+    <div class="card mt-3 mb-4">
+      <h5 class="card-header">Setup</h5>
+      <div class="card-body">
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <button id="select-folder-button" class="btn btn-secondary" type="button">Select</button>
+          </div>
+          <input id="selected-folder" type="text" class="form-control" placeholder="Select folder">
+        </div>
+
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="recursive-checkbox">
+          <label class="form-check-label" for="recursive-checkbox">
+            Include subfolders
+          </label>
+        </div>
+
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-light">Filter</span>
+          </div>
+          <input id="filter-name" type="text" class="form-control" placeholder="Search by name">
+        </div>
+
+        <div class="form-inline mb-2 ">
+          <label class="mr-2" for="order-option">Order by</label>
+          <select class="custom-select my-1 mr-sm-2" id="order-option">
+            <option value="name" selected>Name</option>
+            <option value="date">Date</option>
+          </select>
+        </div>
+
+        <div class="form-inline mb-2 ">
+          <label class="mr-2" for="type-option">Type</label>
+          <select class="custom-select my-1 mr-sm-2" id="type-option">
+            <option value="180">180º</option>
+            <option value="360">360º</option>
+            <option value="ff">Fixed</option>
+          </select>
+          <label class="mr-2" for="layout-option">Layout</label>
+          <select class="custom-select my-1 mr-sm-2" id="layout-option">
+            <option value="2d">2D</option>
+            <option value="sbs">3D SBS</option>
+            <option value="ou">3D OU</option>
+            <option value="sbs_fr">3D SBS (full)</option>
+            <option value="ou_fr">3D OU (full)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div id="preview-card" class="card mb-5">
+      <h5 class="card-header">Preview &nbsp;(<span id="preview-output">16 videos found</span>)</h5>
+      <div class="card-body" id="preview-link-list">
+        <!-- Dynamically filled -->
+      </div>
+    </div>
+
+    <div id="feed-link-container" class="card text-white bg-success mb-3">
+      <h5 class="card-header">Feed link</h5>
+      <div class="card-body">
+        <div class="input-group">
+          <input id="feed-link" type="text" class="form-control" readonly>
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" id="feed-link-copy">Copy</button>
+          </div>
+        </div>
+        <small class="form-text">You will always get the same link with your account</small>
+      </div>
+    </div>
+
+    <div id="generate-thumbnails-card" class="card text-white bg-warning mb-4 d-none">
+      <h5 class="card-header">Missing thumbnails</h5>
+      <div class="card-body">
+        <span class="align-middle clearfix">Some thumbnails are missing and won't be seen in Littlstar menu.</span>
+        <button id="generate-thumbnails-button" class="btn btn-success mt-3">Generate</button>
+        <div class="progress mt-3">
+          <div id="generate-thumbnails-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="publish-section" class="d-flex justify-content-center mb-4">
+      <button id="publish-button" type="button" class="btn btn-lg px-5 mr-3 btn-success" disabled>Start</button>
+      <button id="publish-stop-button" type="button" class="btn btn-lg px-5 ml-3 btn-danger" disabled>Stop</button>
+    </div>
+
+  </div>
+</body>
+
+<script>
+  require('../build/windows/home.view.js')
+</script>
+
+</html>
